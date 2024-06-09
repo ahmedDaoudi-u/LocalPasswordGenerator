@@ -44,14 +44,23 @@ def save_data():
     email = email_input.get()
     password = password_input.get()
 
+    if len(website) == 0 or len(email)==0:
+        messagebox.showinfo("Error", "You can not save empty values")
+    else:
+        saved = messagebox.askokcancel(website, f" The following data are going to be saved :\n"
+                                                f"Email/Username :{email}\n"
+                                                f"Password : {password} \n Do you want to save ?")
+        if saved:
+            with open(file_name, "a") as file:
+                file.write(f"{website} | {email} | {password}\n")
 
-    with open(file_name,"a") as file:
-        file.write(f"{website} | {email} | {password}\n")
+                website_input.delete(0, END)
+                password_input.delete(0, END)
 
-        website_input.delete(0,END)
-        password_input.delete(0,END)
 
-    messagebox.showinfo("Success", f"Data saved to {file_name} successfully ")
+
+
+
 
 
 add_pass = Button(text="Add",width=52,command=save_data)
